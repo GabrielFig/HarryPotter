@@ -1,0 +1,31 @@
+[
+    {
+        "name": "Ron Weasley",
+        "alternate_names": [
+            "Dragomir Despard"
+        ],
+        "scies": "human",
+        "gender": "male",
+        "huse": "Gryffindor",
+        "dateOfBirth": "01-03-1980",
+        "yearfBirth": 1980,
+        "wizard": true,
+        "ancestry": "pure-blood",
+        "eyeClour": "blue",
+        "hairColour": "red",
+        "wand": {
+            "wood": "willow",
+            "core": "unicorn tail-hair",
+            "length": 14
+        },
+        "patronus": "Jack Russell terrier",
+        "hogwartsStudent": true,
+        "hogwartsStaff": false,
+        "actor": "Rupert Grint",
+        "alternate_actors": [
+            
+        ],
+        "alive": true,
+        "image": "https://hp-api.herokuapp.com/images/ron.jpg"
+        }
+]
