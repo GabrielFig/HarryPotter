@@ -41,7 +41,7 @@ void main() {
       });
     });
 
-    test('Se espera una lista de personajes', () async {
+    test('Se esperan 403 personajes', () async {
       RepositorioCharactersOnline repoOnline = RepositorioCharactersOnline();
       var resultado = await repoOnline
           .obtenerPersonajes('https://hp-api.herokuapp.com/api/characters');
@@ -49,6 +49,17 @@ void main() {
         assert(false);
       }, (r) {
         expect(r.length, 403);
+      });
+    });
+
+    test('Se espera un error por ruta erronea', () async {
+      RepositorioCharactersOnline repoOnline = RepositorioCharactersOnline();
+      var resultado = await repoOnline
+          .obtenerPersonajes('https://hp-api.herokuapp.com/api/charact');
+      resultado.match((l) {
+        expect(l, isA<DireccionErronea>());
+      }, (r) {
+        assert(true);
       });
     });
   });
