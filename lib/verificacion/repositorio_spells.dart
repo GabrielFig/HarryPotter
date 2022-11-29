@@ -14,19 +14,18 @@ class RepositorioSpellsOffline extends RepositorioSpells {
   @override
   Future<Either<Problema, List<Spells>>> obtenerHechizos(
       String direccion) async {
-    List<dynamic> file = jsonDecode(File(direccion).readAsStringSync());
+    List<dynamic> file = [];
     try {
-      final resultado = _obtenerListaHechizos(file);
-      resultado.match((l) {
-        return Left(l);
-      }, (r) {
-        return Right(r);
-      });
+      file = jsonDecode(File(direccion).readAsStringSync());
     } catch (e) {
       return Left(FormatoJsonPersonajeErroneo());
     }
-
-    throw UnimplementedError();
+    final resultado = _obtenerListaHechizos(file);
+    return resultado.match((l) {
+      return Left(l);
+    }, (r) {
+      return Right(r);
+    });
   }
 }
 
@@ -38,7 +37,7 @@ class RepositorioSpellsOnline extends RepositorioSpells {
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
       final resultado = _obtenerListaHechizos(json);
-      resultado.match((l) {
+      return resultado.match((l) {
         return Left(l);
       }, (r) {
         return Right(r);

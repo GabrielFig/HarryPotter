@@ -1,0 +1,22 @@
+[
+    {
+        "na": "Aberto",
+        "description": "Opens locked doors"
+    },
+    {
+        "name": "Accio",
+        "dscription": "Summons objects"
+    },
+    {
+        "name": "Aguamenti",
+        "dscription": "Summons water"
+    },
+    {
+        "name": "Alohomora",
+        "description": "Unlocks objects"
+    },
+    {
+        "name": "Anapneo",
+        "description": "Clears someone's airway"
+    }
+]
