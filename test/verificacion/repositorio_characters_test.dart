@@ -63,4 +63,69 @@ void main() {
       });
     });
   });
+
+  group('Personajes por casa offline', () {
+    test('se esperan solo estudiantes de Slytherin', () async {
+      RepositorioCharactersOffline repoOffline = RepositorioCharactersOffline();
+      var resultado = await repoOffline.obtenerPersonajesPorCasa(
+          './test/verificacion/lista_personajes', 'slytherin');
+      resultado.match((l) {
+        assert(false);
+      }, (r) {
+        for (var i = 0; i < r.length; i++) {
+          expect(r[i].house, 'Slytherin');
+        }
+      });
+    });
+
+    test('se espera un problema de direccion incorrecta', () async {
+      RepositorioCharactersOffline repoOffline = RepositorioCharactersOffline();
+      var resultado = await repoOffline.obtenerPersonajesPorCasa(
+          './test/verificacion/lista_personajes', 'slyther');
+      resultado.match((l) {
+        expect(l, isA<FormatoJsonPersonajeErroneo>());
+      }, (r) {
+        assert(true);
+      });
+    });
+  });
+
+  group('Personajes por casa online', () {
+    test('se esperan estudiantes de Slytherin', () async {
+      RepositorioCharactersOnline repoOnline = RepositorioCharactersOnline();
+      var resultado = await repoOnline.obtenerPersonajesPorCasa(
+          'https://hp-api.herokuapp.com/api/characters/house', 'slytherin');
+      resultado.match((l) {
+        assert(false);
+      }, (r) {
+        for (var i = 0; i < r.length; i++) {
+          expect(r[i].house, 'Slytherin');
+        }
+      });
+    });
+
+    test('se esperan estudiantes de Ravenclaw', () async {
+      RepositorioCharactersOnline repoOnline = RepositorioCharactersOnline();
+      var resultado = await repoOnline.obtenerPersonajesPorCasa(
+          'https://hp-api.herokuapp.com/api/characters/house', 'ravenclaw');
+      resultado.match((l) {
+        assert(false);
+      }, (r) {
+        for (var i = 0; i < r.length; i++) {
+          expect(r[i].house, 'Ravenclaw');
+        }
+      });
+    });
+
+    test('se espera un error en la ruta', () async {
+      RepositorioCharactersOnline repoOnline = RepositorioCharactersOnline();
+      var resultado = await repoOnline.obtenerPersonajesPorCasa(
+          'https://hp-api.herokuapp.com/api/characters/house', 'ravencl');
+      resultado.match((l) {
+        expect(l, isA<DireccionErronea>());
+      }, (r) {
+        assert(true);
+      });
+    });
+  });
 }
