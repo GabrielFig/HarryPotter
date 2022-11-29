@@ -8,7 +8,7 @@ import "package:http/http.dart" as http;
 
 abstract class RepositorioCharacters {
   Future<Either<Problema, List<Character>>> obtenerPersonajes(String direccion);
-  Future<Either<Problema, List<Character>>> obtenerPersonajesPorCasa(
+  Future<Either<Problema, List<Character>>> obtenerPersonajesPorFiltro(
       String direccion, nombreCasa);
 }
 
@@ -32,7 +32,7 @@ class RepositorioCharactersOnline extends RepositorioCharacters {
   }
 
   @override
-  Future<Either<Problema, List<Character>>> obtenerPersonajesPorCasa(
+  Future<Either<Problema, List<Character>>> obtenerPersonajesPorFiltro(
       String direccion, nombreCasa) async {
     String rutaCompleta = '$direccion/$nombreCasa';
     final response = await http.get(Uri.parse(rutaCompleta));
@@ -68,7 +68,7 @@ class RepositorioCharactersOffline extends RepositorioCharacters {
   }
 
   @override
-  Future<Either<Problema, List<Character>>> obtenerPersonajesPorCasa(
+  Future<Either<Problema, List<Character>>> obtenerPersonajesPorFiltro(
       String direccion, nombreCasa) async {
     String direccionCompleta = '$direccion/$nombreCasa.json';
     List<dynamic> file = [];

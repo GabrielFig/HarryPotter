@@ -67,7 +67,7 @@ void main() {
   group('Personajes por casa offline', () {
     test('se esperan solo estudiantes de Slytherin', () async {
       RepositorioCharactersOffline repoOffline = RepositorioCharactersOffline();
-      var resultado = await repoOffline.obtenerPersonajesPorCasa(
+      var resultado = await repoOffline.obtenerPersonajesPorFiltro(
           './test/verificacion/lista_personajes', 'slytherin');
       resultado.match((l) {
         assert(false);
@@ -80,7 +80,7 @@ void main() {
 
     test('se espera un problema de direccion incorrecta', () async {
       RepositorioCharactersOffline repoOffline = RepositorioCharactersOffline();
-      var resultado = await repoOffline.obtenerPersonajesPorCasa(
+      var resultado = await repoOffline.obtenerPersonajesPorFiltro(
           './test/verificacion/lista_personajes', 'slyther');
       resultado.match((l) {
         expect(l, isA<FormatoJsonPersonajeErroneo>());
@@ -93,7 +93,7 @@ void main() {
   group('Personajes por casa online', () {
     test('se esperan estudiantes de Slytherin', () async {
       RepositorioCharactersOnline repoOnline = RepositorioCharactersOnline();
-      var resultado = await repoOnline.obtenerPersonajesPorCasa(
+      var resultado = await repoOnline.obtenerPersonajesPorFiltro(
           'https://hp-api.herokuapp.com/api/characters/house', 'slytherin');
       resultado.match((l) {
         assert(false);
@@ -106,7 +106,7 @@ void main() {
 
     test('se esperan estudiantes de Ravenclaw', () async {
       RepositorioCharactersOnline repoOnline = RepositorioCharactersOnline();
-      var resultado = await repoOnline.obtenerPersonajesPorCasa(
+      var resultado = await repoOnline.obtenerPersonajesPorFiltro(
           'https://hp-api.herokuapp.com/api/characters/house', 'ravenclaw');
       resultado.match((l) {
         assert(false);
@@ -119,7 +119,7 @@ void main() {
 
     test('se espera un error en la ruta', () async {
       RepositorioCharactersOnline repoOnline = RepositorioCharactersOnline();
-      var resultado = await repoOnline.obtenerPersonajesPorCasa(
+      var resultado = await repoOnline.obtenerPersonajesPorFiltro(
           'https://hp-api.herokuapp.com/api/characters/house', 'ravencl');
       resultado.match((l) {
         expect(l, isA<DireccionErronea>());
@@ -128,4 +128,34 @@ void main() {
       });
     });
   });
+
+  group('Personajes que son estudiantes offline', () {
+    test('se esperan solo estuidantes', () async {
+      RepositorioCharactersOffline repoOffline = RepositorioCharactersOffline();
+      var resultado = await repoOffline.obtenerPersonajesPorFiltro(
+          './test/verificacion/lista_personajes', 'students');
+      resultado.match((l) {
+        assert(false);
+      }, (r) {
+        for (var i = 0; i < r.length; i++) {
+          expect(r[i].esEstudiante, true);
+        }
+      });
+    });
+  });
+
+  group('Personajes que son estudiantes online', () {
+  test('se esperan solo estuidantes', () async {
+    RepositorioCharactersOnline repoOnline = RepositorioCharactersOnline();
+    var resultado = await repoOnline.obtenerPersonajesPorFiltro(
+        'https://hp-api.herokuapp.com/api/characters', 'students');
+    resultado.match((l) {
+      assert(false);
+    }, (r) {
+      for (var i = 0; i < r.length; i++) {
+        expect(r[i].esEstudiante, true);
+      }
+    });
+  });
+});
 }
