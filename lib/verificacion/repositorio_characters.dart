@@ -34,7 +34,7 @@ class RepositorioCharactersOnline extends RepositorioCharacters {
   @override
   Future<Either<Problema, List<Character>>> obtenerPersonajesPorCasa(
       String direccion, nombreCasa) async {
-    String rutaCompleta = direccion + nombreCasa;
+    String rutaCompleta = '$direccion/$nombreCasa';
     final response = await http.get(Uri.parse(rutaCompleta));
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
