@@ -9,7 +9,7 @@ import "package:http/http.dart" as http;
 abstract class RepositorioCharacters {
   Future<Either<Problema, List<Character>>> obtenerPersonajes(String direccion);
   Future<Either<Problema, List<Character>>> obtenerPersonajesPorFiltro(
-      String direccion, nombreCasa);
+      String direccion, filtro);
 }
 
 class RepositorioCharactersOnline extends RepositorioCharacters {
@@ -33,8 +33,8 @@ class RepositorioCharactersOnline extends RepositorioCharacters {
 
   @override
   Future<Either<Problema, List<Character>>> obtenerPersonajesPorFiltro(
-      String direccion, nombreCasa) async {
-    String rutaCompleta = '$direccion/$nombreCasa';
+      String direccion, filtro) async {
+    String rutaCompleta = '$direccion/$filtro';
     final response = await http.get(Uri.parse(rutaCompleta));
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
@@ -69,8 +69,8 @@ class RepositorioCharactersOffline extends RepositorioCharacters {
 
   @override
   Future<Either<Problema, List<Character>>> obtenerPersonajesPorFiltro(
-      String direccion, nombreCasa) async {
-    String direccionCompleta = '$direccion/$nombreCasa.json';
+      String direccion, filtro) async {
+    String direccionCompleta = '$direccion/$filtro.json';
     List<dynamic> file = [];
     try {
       file = jsonDecode(File(direccionCompleta).readAsStringSync());
