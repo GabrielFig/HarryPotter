@@ -17,6 +17,7 @@ class VistaMainPage extends StatelessWidget {
       body: Container(
           padding: const EdgeInsets.all(150),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Column(
                 children: [
@@ -34,7 +35,7 @@ class VistaMainPage extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: const <Widget>[
                           Icon(
-                            Icons.home,
+                            Icons.api_rounded,
                             size: 20.0,
                           ),
                           Text(
@@ -59,7 +60,7 @@ class VistaMainPage extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: const <Widget>[
                           Icon(
-                            Icons.home,
+                            Icons.api_rounded,
                             size: 20.0,
                           ),
                           Text(
@@ -88,7 +89,7 @@ class VistaMainPage extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: const <Widget>[
                           Icon(
-                            Icons.home,
+                            Icons.api_rounded,
                             size: 20.0,
                           ),
                           Text(
@@ -117,11 +118,12 @@ class VistaMainPage extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: const <Widget>[
                           Icon(
-                            Icons.home,
+                            Icons.api_rounded,
                             size: 20.0,
                           ),
                           Text(
                             "Mostrar personajes por casa",
+                            textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 17.0),
                           )
                         ],
@@ -133,17 +135,20 @@ class VistaMainPage extends StatelessWidget {
                     height: 143,
                     child: Card(
                         child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        var bloc = context.read<BlocVerificacion>();
+                        bloc.add(MostrarHechizos());
+                      },
                       child: Center(
                           child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: const <Widget>[
                           Icon(
-                            Icons.home,
+                            Icons.api_rounded,
                             size: 20.0,
                           ),
                           Text(
-                            "Home",
+                            "Mostrar Hechizos",
                             style: TextStyle(fontSize: 17.0),
                           )
                         ],
@@ -157,77 +162,3 @@ class VistaMainPage extends StatelessWidget {
     );
   }
 }
-
-class BotonEspecial extends StatelessWidget {
-  const BotonEspecial({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.all(30.0),
-      child: InkWell(
-        onTap: () {},
-        splashColor: Colors.white,
-        child: Center(
-            child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: const <Widget>[
-            Icon(
-              Icons.home,
-              size: 20.0,
-            ),
-            Text(
-              "Home",
-              style: TextStyle(fontSize: 17.0),
-            )
-          ],
-        )),
-      ),
-    );
-  }
-}
-
-
-// class BotonEspecial extends StatelessWidget {
-//   const BotonEspecial({
-//     Key? key,
-//     required this.icon,
-//     required this.color,
-//     required this.contexto,
-//     required this.title,
-//     required this.evento,
-//     required this.direccion,
-//     required this.filtro,
-//   }) : super(key: key);
-
-//   final String title;
-//   final IconData icon;
-//   final MaterialColor color;
-//   final BuildContext contexto;
-//   final Evento evento;
-//   final String direccion;
-//   final Either<String, void> filtro;
-//   @override
-//   Widget build(BuildContext context) {
-//     return Card(
-//       margin: const EdgeInsets.all(8.0),
-//       child: InkWell(
-//         onTap: () {},
-//         splashColor: Colors.white,
-//         child: Center(
-//             child: Column(
-//           mainAxisSize: MainAxisSize.min,
-//           children: const <Widget>[
-//             Icon(
-//               Icons.home,
-//               size: 70.0,
-//             ),
-//             Text(
-//               "Home",
-//               style: TextStyle(fontSize: 17.0),
-//             )
-//           ],
-//         )),
-//       ),
-//     );
-//   }
-// }

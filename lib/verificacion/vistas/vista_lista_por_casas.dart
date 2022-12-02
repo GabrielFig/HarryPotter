@@ -26,7 +26,8 @@ class VistaPersonajesPorCasa extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       return ListTile(
                         onTap: () {
-                          print(personajes[index].imagen);
+                          var bloc = context.read<BlocVerificacion>();
+                          bloc.add(MostrarDetallePersonaje(personajes[index]));
                         },
                         title: Text(personajes[index].name),
                         leading: CachedNetworkImage(

@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:harry_popotes/dominio/character.dart';
+import 'package:harry_popotes/dominio/spells.dart';
 import 'dart:io';
 
 import 'package:harry_popotes/verificacion/repositorio_characters.dart';
+import 'package:harry_popotes/verificacion/repositorio_spells.dart';
 
 class Evento {}
 
@@ -12,11 +14,7 @@ class Creado extends Evento {}
 
 class MostrarPersonajes extends Evento {}
 
-class MostrarHechizos extends Evento {
-  final String direccion;
-
-  MostrarHechizos(this.direccion);
-}
+class MostrarHechizos extends Evento {}
 
 class MostrarPersonajesCasa extends Evento {}
 
@@ -68,6 +66,12 @@ class MostrandoDetalleDePersonaje extends Estado {
   final Character personaje;
 
   MostrandoDetalleDePersonaje(this.personaje);
+}
+
+class MostrandoHechizos extends Estado {
+  final List<Spells> hechizos;
+
+  MostrandoHechizos(this.hechizos);
 }
 
 class MostrandoPersonajesPorCasa extends Estado {}
@@ -130,6 +134,17 @@ class BlocVerificacion extends Bloc<Evento, Estado> {
 
     on<MostrarDetallePersonaje>((event, emit) async {
       emit(MostrandoDetalleDePersonaje(event.personaje));
+    });
+
+    on<MostrarHechizos>((event, emit) async {
+      RepositorioSpellsOnline repoOnline = RepositorioSpellsOnline();
+      var resultado = await repoOnline
+          .obtenerHechizos('https://hp-api.onrender.com/api/spells');
+      resultado.match((l) {
+        emit(MostrandoPantallaSinInternet());
+      }, (r) {
+        emit(MostrandoHechizos(r));
+      });
     });
   }
 }

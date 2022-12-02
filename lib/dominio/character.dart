@@ -35,7 +35,7 @@ class Character {
       String imagen = json['image'];
       if (imagen.isEmpty) {
         imagen =
-            'https://cdn.discordapp.com/attachments/1037900493088899092/1046999324862722190/pedro_raro.PNG';
+            'https://cdn.icon-icons.com/icons2/1352/PNG/512/if-14-harry-potter-colour-hogwarts-shield-2730327_88145.png';
       }
       return Character(
           house: json['house'],
