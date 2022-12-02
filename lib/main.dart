@@ -36,8 +36,6 @@ class Aplicacion extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-            title: const Text('Aplicacion Harry Potter   Gabriel Figueroa')),
         body: Builder(
           builder: (context) {
             var estado = context.watch<BlocVerificacion>().state;
