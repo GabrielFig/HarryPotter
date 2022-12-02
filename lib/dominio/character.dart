@@ -45,7 +45,7 @@ class Character {
           hogwartsStaff: json['hogwartsStaff'],
           actor: json['actor'],
           vivo: json['alive'],
-          imagen: json['image']);
+          imagen: json['image'].toString().replaceAll('herokuapp', 'onrender'));
     } catch (e) {
       throw FormatoJsonPersonajeErroneo();
     }

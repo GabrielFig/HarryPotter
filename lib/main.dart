@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:harry_popotes/verificacion/bloc.dart';
 import 'package:harry_popotes/verificacion/vistas/vista_creandose.dart';
 import 'package:flutter/material.dart';
+import 'package:harry_popotes/verificacion/vistas/vista_lista_personajes.dart';
 import 'package:harry_popotes/verificacion/vistas/vista_main.dart';
 
 void main() {
@@ -44,6 +45,9 @@ class Aplicacion extends StatelessWidget {
             }
             if (estado is MostrandoMainPage) {
               return const VistaMainPage();
+            }
+            if (estado is MostrandoPersonajes) {
+              return VistaListaPersonajes(personajes: estado.personajes);
             }
             return const Center(child: Text('huye'));
           },
