@@ -20,6 +20,12 @@ class MostrarHechizos extends Evento {
 
 class MostrarPersonajesCasa extends Evento {}
 
+class MostrarDetallePersonaje extends Evento {
+  final Character personaje;
+
+  MostrarDetallePersonaje(this.personaje);
+}
+
 class MostrarPersonajesDeUnaCasa extends Evento {
   final String casa;
 
@@ -56,6 +62,12 @@ class MostrandoPersonajesPorUnaCasa extends Estado {
   final List<Character> personajes;
 
   MostrandoPersonajesPorUnaCasa(this.personajes);
+}
+
+class MostrandoDetalleDePersonaje extends Estado {
+  final Character personaje;
+
+  MostrandoDetalleDePersonaje(this.personaje);
 }
 
 class MostrandoPersonajesPorCasa extends Estado {}
@@ -114,6 +126,10 @@ class BlocVerificacion extends Bloc<Evento, Estado> {
       }, (r) {
         emit(MostrandoPersonajesPorUnaCasa(r));
       });
+    });
+
+    on<MostrarDetallePersonaje>((event, emit) async {
+      emit(MostrandoDetalleDePersonaje(event.personaje));
     });
   }
 }

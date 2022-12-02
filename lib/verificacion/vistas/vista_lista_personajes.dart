@@ -24,7 +24,8 @@ class VistaListaPersonajes extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       return ListTile(
                         onTap: () {
-                          print(personajes[index].imagen);
+                          var bloc = context.read<BlocVerificacion>();
+                          bloc.add(MostrarDetallePersonaje(personajes[index]));
                         },
                         title: Text(personajes[index].name),
                         leading: CachedNetworkImage(
@@ -34,6 +35,7 @@ class VistaListaPersonajes extends StatelessWidget {
                           errorWidget: (context, url, error) =>
                               const Icon(Icons.error),
                         ),
+                        trailing: Text(personajes[index].house),
                       );
                     })),
             FloatingActionButton(
