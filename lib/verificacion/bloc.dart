@@ -25,19 +25,9 @@ class MostrarPersonajesCasa extends Evento {
   MostrarPersonajesCasa(this.direccion, this.casa);
 }
 
-class MostrarPersonajesEstudiantes extends Evento {
-  final String direccion;
-  final String estudiante;
+class MostrarPersonajesEstudiantes extends Evento {}
 
-  MostrarPersonajesEstudiantes(this.direccion, this.estudiante);
-}
-
-class MostrarPersonajesStaff extends Evento {
-  final String direccion;
-  final String staff;
-
-  MostrarPersonajesStaff(this.direccion, this.staff);
-}
+class MostrarPersonajesStaff extends Evento {}
 
 class MostrandoMainPage extends Estado {}
 
@@ -47,6 +37,18 @@ class MostrandoPersonajes extends Estado {
   final List<Character> personajes;
 
   MostrandoPersonajes(this.personajes);
+}
+
+class MostrandoPersonajesStaff extends Estado {
+  final List<Character> personajes;
+
+  MostrandoPersonajesStaff(this.personajes);
+}
+
+class MostrandoPersonajesEstudiantes extends Estado {
+  final List<Character> personajes;
+
+  MostrandoPersonajesEstudiantes(this.personajes);
 }
 
 class MostrandoPantallaSinInternet extends Estado {}
@@ -65,6 +67,28 @@ class BlocVerificacion extends Bloc<Evento, Estado> {
         emit(MostrandoPantallaSinInternet());
       }, (r) {
         emit(MostrandoPersonajes(r));
+      });
+    });
+
+    on<MostrarPersonajesStaff>((event, emit) async {
+      RepositorioCharactersOnline repoOnline = RepositorioCharactersOnline();
+      var resultado = await repoOnline.obtenerPersonajesPorFiltro(
+          'https://hp-api.onrender.com/api/characters', 'staff');
+      resultado.match((l) {
+        emit(MostrandoPantallaSinInternet());
+      }, (r) {
+        emit(MostrandoPersonajesStaff(r));
+      });
+    });
+
+    on<MostrarPersonajesEstudiantes>((event, emit) async {
+      RepositorioCharactersOnline repoOnline = RepositorioCharactersOnline();
+      var resultado = await repoOnline.obtenerPersonajesPorFiltro(
+          'https://hp-api.onrender.com/api/characters', 'students');
+      resultado.match((l) {
+        emit(MostrandoPantallaSinInternet());
+      }, (r) {
+        emit(MostrandoPersonajesEstudiantes(r));
       });
     });
   }

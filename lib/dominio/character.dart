@@ -32,6 +32,11 @@ class Character {
 
   factory Character.constructor({required Map<String, dynamic> json}) {
     try {
+      String imagen = json['image'];
+      if (imagen.isEmpty) {
+        imagen =
+            'https://cdn.discordapp.com/attachments/1037900493088899092/1046999324862722190/pedro_raro.PNG';
+      }
       return Character(
           house: json['house'],
           name: json['name'],
@@ -45,7 +50,7 @@ class Character {
           hogwartsStaff: json['hogwartsStaff'],
           actor: json['actor'],
           vivo: json['alive'],
-          imagen: json['image'].toString().replaceAll('herokuapp', 'onrender'));
+          imagen: imagen.toString().replaceAll('herokuapp', 'onrender'));
     } catch (e) {
       throw FormatoJsonPersonajeErroneo();
     }

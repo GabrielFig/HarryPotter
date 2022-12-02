@@ -50,7 +50,10 @@ class VistaMainPage extends StatelessWidget {
                     height: 143,
                     child: Card(
                         child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        var bloc = context.read<BlocVerificacion>();
+                        bloc.add(MostrarPersonajesStaff());
+                      },
                       child: Center(
                           child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -60,7 +63,7 @@ class VistaMainPage extends StatelessWidget {
                             size: 20.0,
                           ),
                           Text(
-                            "Home",
+                            "Ver todos los maestros",
                             style: TextStyle(fontSize: 17.0),
                           )
                         ],
@@ -76,7 +79,10 @@ class VistaMainPage extends StatelessWidget {
                     height: 143,
                     child: Card(
                         child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        var bloc = context.read<BlocVerificacion>();
+                        bloc.add(MostrarPersonajesEstudiantes());
+                      },
                       child: Center(
                           child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -86,7 +92,7 @@ class VistaMainPage extends StatelessWidget {
                             size: 20.0,
                           ),
                           Text(
-                            "Home",
+                            "Ver todos los alumnos",
                             style: TextStyle(fontSize: 17.0),
                           )
                         ],

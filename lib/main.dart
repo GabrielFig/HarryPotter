@@ -49,6 +49,12 @@ class Aplicacion extends StatelessWidget {
             if (estado is MostrandoPersonajes) {
               return VistaListaPersonajes(personajes: estado.personajes);
             }
+            if (estado is MostrandoPersonajesStaff) {
+              return VistaListaPersonajes(personajes: estado.personajes);
+            }
+            if (estado is MostrandoPersonajesEstudiantes) {
+              return VistaListaPersonajes(personajes: estado.personajes);
+            }
             return const Center(child: Text('huye'));
           },
         ),
