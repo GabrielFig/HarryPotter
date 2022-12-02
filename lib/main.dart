@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:harry_popotes/verificacion/bloc.dart';
+import 'package:harry_popotes/verificacion/vistas/vista_casas.dart';
 import 'package:harry_popotes/verificacion/vistas/vista_creandose.dart';
 import 'package:flutter/material.dart';
 import 'package:harry_popotes/verificacion/vistas/vista_lista_personajes.dart';
+import 'package:harry_popotes/verificacion/vistas/vista_lista_por_casas.dart';
 import 'package:harry_popotes/verificacion/vistas/vista_main.dart';
 
 void main() {
@@ -54,6 +56,12 @@ class Aplicacion extends StatelessWidget {
             }
             if (estado is MostrandoPersonajesEstudiantes) {
               return VistaListaPersonajes(personajes: estado.personajes);
+            }
+            if (estado is MostrandoPersonajesPorCasa) {
+              return VistaCasas();
+            }
+            if (estado is MostrandoPersonajesPorUnaCasa) {
+              return VistaPersonajesPorCasa(personajes: estado.personajes);
             }
             return const Center(child: Text('huye'));
           },

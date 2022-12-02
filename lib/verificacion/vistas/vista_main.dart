@@ -108,7 +108,10 @@ class VistaMainPage extends StatelessWidget {
                     height: 143,
                     child: Card(
                         child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        var bloc = context.read<BlocVerificacion>();
+                        bloc.add(MostrarPersonajesCasa());
+                      },
                       child: Center(
                           child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -118,7 +121,7 @@ class VistaMainPage extends StatelessWidget {
                             size: 20.0,
                           ),
                           Text(
-                            "Home",
+                            "Mostrar personajes por casa",
                             style: TextStyle(fontSize: 17.0),
                           )
                         ],

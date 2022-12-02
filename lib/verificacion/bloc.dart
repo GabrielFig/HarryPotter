@@ -18,11 +18,12 @@ class MostrarHechizos extends Evento {
   MostrarHechizos(this.direccion);
 }
 
-class MostrarPersonajesCasa extends Evento {
-  final String direccion;
+class MostrarPersonajesCasa extends Evento {}
+
+class MostrarPersonajesDeUnaCasa extends Evento {
   final String casa;
 
-  MostrarPersonajesCasa(this.direccion, this.casa);
+  MostrarPersonajesDeUnaCasa(this.casa);
 }
 
 class MostrarPersonajesEstudiantes extends Evento {}
@@ -50,6 +51,14 @@ class MostrandoPersonajesEstudiantes extends Estado {
 
   MostrandoPersonajesEstudiantes(this.personajes);
 }
+
+class MostrandoPersonajesPorUnaCasa extends Estado {
+  final List<Character> personajes;
+
+  MostrandoPersonajesPorUnaCasa(this.personajes);
+}
+
+class MostrandoPersonajesPorCasa extends Estado {}
 
 class MostrandoPantallaSinInternet extends Estado {}
 
@@ -89,6 +98,21 @@ class BlocVerificacion extends Bloc<Evento, Estado> {
         emit(MostrandoPantallaSinInternet());
       }, (r) {
         emit(MostrandoPersonajesEstudiantes(r));
+      });
+    });
+
+    on<MostrarPersonajesCasa>((event, emit) async {
+      emit(MostrandoPersonajesPorCasa());
+    });
+
+    on<MostrarPersonajesDeUnaCasa>((event, emit) async {
+      RepositorioCharactersOnline repoOnline = RepositorioCharactersOnline();
+      var resultado = await repoOnline.obtenerPersonajesPorFiltro(
+          'https://hp-api.onrender.com/api/characters/house', event.casa);
+      resultado.match((l) {
+        emit(MostrandoPantallaSinInternet());
+      }, (r) {
+        emit(MostrandoPersonajesPorUnaCasa(r));
       });
     });
   }
